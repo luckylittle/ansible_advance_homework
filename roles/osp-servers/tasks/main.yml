@@ -1,10 +1,53 @@
 ---
 
 # tasks file for osp.servers
-- name: Create new server instances and attaches them a network and passes metadata to the instance
+---
+# tasks file for lmaly.osp-instances
+- name: 1.0 | Create a server instance(s)
+  os_server:
+    cloud: ospcloud
+    name: "{{ item.0.instance_name }}"
+    image: "{{ item.0.image }}"
+    meta: "{{ item.1 }}"
+    flavor: "{{ item.0.flavor_name }}"
+    security_groups: "{{ item.0.security_group_name }}"
+    key_name: "{{ item.0.key_pair }}"
+    wait: yes
+    nics:
+      - net-name: int_network
+    userdata: |
+      #!/bin/bash
+      curl -o /tmp/openstack.pub http://www.opentlc.com/download/ansible_bootcamp/openstack_keys/openstack.pub
+      cat /tmp/openstack.pub >> /home/cloud-user/.ssh/authorized_keys
+      curl -o /tmp/internal.repo http://www.opentlc.com/download/ansible_bootcamp/repo/internal.repo
+      cp /tmp/internal.repo /etc/yum.repos.d/internal.repo
+  register: instance_ip
+  with_subelements:
+    - "{{ osp_servers }}"
+    - meta
 
+- name: 1.1 | Add floating IP to instance(s)
+  os_floating_ip:
+    cloud: ospcloud
+    state: present
+    reuse: yes
+    server: "{{ item.value.instance_name }}"
+    network: ext_network
+    wait: true
+    timeout: 180
+  with_dict: "{{ osp_servers }}"
 
-- name: Add floating IP to Servers
-   
+- name: 1.2 | Gather OpenStack facts
+  os_server_facts:
+    cloud: ospcloud
+  register: result
 
-- name: Wait for server to be available
+- name: 1.3 | Wait for instance(s) to be available
+  wait_for:
+    host: "{{ item.public_v4 }}"
+    port: 22
+    search_regex: OpenSSH
+    timeout: 600
+  delegate_to: "{{ inventory_hostname }}"
+  with_items: 
+    - "{{ result.ansible_facts.openstack_servers }}"
