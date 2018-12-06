@@ -10,7 +10,8 @@
       - osp.smoke
 
   - name: Debug
-    msg: "{{ openstack_info }}"
+    debug:
+      msg: "{{ openstack_info }}"
 
   # - name: Curl website
   #   command: curl http://"{{ groups['frontends'][0].inventory_hostname }}"
