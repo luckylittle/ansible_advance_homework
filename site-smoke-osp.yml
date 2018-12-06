@@ -9,12 +9,8 @@
     tags:
       - osp.smoke
 
-  - name: Debug the public_v4
-    debug:
-      var: openstack_info | json_query('ansible_facts.openstack_servers[*].accessIPv4')
-
   - name: Curl website
-    command: curl http://"{{ openstack_info | json_query('ansible_facts.openstack_servers[*].accessIPv4') }}"
+    command: curl http://"{{ openstack_info | json_query('ansible_facts.openstack_servers[*].accessIPv4') | first }}"
     register: webpage
     tags:
      - osp.smoke
