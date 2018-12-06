@@ -9,11 +9,14 @@
     tags:
       - osp.smoke
 
-  - name: Curl website
-    command: curl http://"{{ groups['frontends'][0].inventory_hostname }}"
-    register: webpage
-    tags:
-      - osp.smoke
+  - name: Debug
+    msg: "{{ openstack_info }}"
+
+  # - name: Curl website
+  #   command: curl http://"{{ groups['frontends'][0].inventory_hostname }}"
+  #   register: webpage
+  #   tags:
+  #     - osp.smoke
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
