@@ -11,7 +11,7 @@
 
   - name: Debug the public_v4
     debug:
-      msg: "{{ openstack_info }} | json_query('.msg.ansible_facts.openstack_servers.[public_v4]')"
+      msg: "{{ openstack_info | json_query('.msg.ansible_facts.openstack_servers.[public_v4]') }}"
 
   # - name: Curl website
   #   command: curl http://"{{ groups['frontends'][0].inventory_hostname }}"
