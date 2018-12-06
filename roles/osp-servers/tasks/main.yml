@@ -1,8 +1,5 @@
 ---
-
 # tasks file for osp.servers
----
-# tasks file for lmaly.osp-instances
 - name: 1.0 | Create a server instance(s)
   os_server:
     cloud: ospcloud
