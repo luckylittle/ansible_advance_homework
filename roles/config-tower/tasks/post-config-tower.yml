@@ -5,6 +5,8 @@
     description: "Foo bar project lmaly"
     organization: "{{ org_name }}"
     state: present
+    scm_type: git
+    scm_url: "{{ scm_url }}"
 
 - name: Machine Credentail to connect to workstation using openstack.pub
   tower_credential:
