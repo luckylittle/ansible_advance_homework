@@ -1,2 +1,28 @@
 ---
-# tasks file for app-tier
+# tasks file for lmaly.tomcat
+- name: 1.0 | Install tomcat
+  package:
+    name: tomcat
+    state: latest
+
+- name: 2.0 | Enable Tomcat at boot
+  service:
+    name: tomcat
+    enabled: yes
+
+- name: 3.0 | Create Ansible tomcat directory
+  file:
+    path: /usr/share/tomcat/webapps/ROOT
+    state: directory
+
+- name: 4.0 | Copy static index.html to Tomcat
+  template:
+    src: templates/index.html.j2
+    dest: /usr/share/tomcat/webapps/ROOT/index.html
+    mode: 0644
+  notify: Restart Tomcat
+
+- name: 5.0 | Start tomcat
+  service:
+    name: tomcat
+    state: started

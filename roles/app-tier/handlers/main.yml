@@ -1,2 +1,6 @@
 ---
-# handlers file for app-tier
+# handlers file for lmaly.tomcat
+- name: Restart Tomcat
+  service:
+    name: tomcat
+    state: restarted

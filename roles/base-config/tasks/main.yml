@@ -1,2 +1,12 @@
 ---
-# tasks file for base-config
+# tasks file for lmaly.common
+- name: 1.0 | Enable 'open_three-tier-app' repository
+  template:
+    src: templates/open_three-tier-app.repo.j2
+    dest: /etc/yum.repos.d/open_three-tier-app.repo
+    mode: 0644
+
+- name: 2.0 | Install command line HTTP client
+  package:
+    name: httpie
+    state: latest

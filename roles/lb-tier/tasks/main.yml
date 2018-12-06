@@ -1,2 +1,22 @@
 ---
-# tasks file for lb-tier
+# tasks file for lmaly.haproxy
+- name: 1.0 | Install HAProxy
+  package:
+    name: haproxy
+    state: latest
+
+- name: 1.1 | Enable HAProxy
+  service:
+    name: haproxy
+    enabled: yes
+
+- name: 2.0 | Configure HAproxy
+  template:
+    src: templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: Restart HAproxy
+
+- name: 3.0 | Start HAproxy
+  service:
+    name: haproxy
+    state: started

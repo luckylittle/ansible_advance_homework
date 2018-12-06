@@ -1,2 +1,25 @@
 ---
-# tasks file for db-tier
+# tasks file for lmaly.postgres
+- name: 1.0 | Install Postgres
+  package:
+    name: postgresql-server
+    state: latest
+
+- name: 2.0 | Enable Postgres at boot
+  service:
+    name: postgresql
+    enabled: yes
+
+- name: 3.0 | Initialize Postgres
+  stat:
+    path: /var/lib/pgsql/data/PG_VERSION
+  register: var_lib_pqsql_data
+
+- name: 3.1 | Initialize Postgres
+  command: postgresql-setup initdb
+  when: not var_lib_pqsql_data.stat.exists
+
+- name: 4.0 | Start Postgres
+  service:
+    name: postgresql
+    state: started

@@ -8,6 +8,9 @@
     scm_type: git
     scm_url: "{{ scm_url }}"
 
+- name: Sync the project
+  command: tower-cli project update -n "{{ proj_name }}"
+
 - name: Machine Credentail to connect to workstation using openstack.pub
   tower_credential:
     name: Connect_to_workstation
