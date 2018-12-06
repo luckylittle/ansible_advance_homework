@@ -3,12 +3,12 @@
 - name: 1.0 | Create a server instance(s)
   os_server:
     cloud: ospcloud
-    name: "{{ item.0.instance_name }}"
+    name: "{{ item.0.name }}"
     image: "{{ item.0.image }}"
     meta: "{{ item.1 }}"
-    flavor: "{{ item.0.flavor_name }}"
-    security_groups: "{{ item.0.security_group_name }}"
-    key_name: "{{ item.0.key_pair }}"
+    flavor: "{{ item.0.flavor }}"
+    security_groups: "{{ item.0.security_group }}"
+    key_name: "{{ item.0.key_name }}"
     wait: yes
     nics:
       - net-name: int_network
@@ -28,7 +28,7 @@
     cloud: ospcloud
     state: present
     reuse: yes
-    server: "{{ item.value.instance_name }}"
+    server: "{{ item.value.name }}"
     network: ext_network
     wait: true
     timeout: 180
