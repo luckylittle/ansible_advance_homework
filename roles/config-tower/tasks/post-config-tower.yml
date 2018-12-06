@@ -5,7 +5,6 @@
     description: "Foo bar project lmaly"
     organization: "{{ org_name }}"
     state: present
-    tower_config_file: "~/tower_cli.cfg"
 
 - name: Machine Credentail to connect to workstation using openstack.pub
   tower_credential:
