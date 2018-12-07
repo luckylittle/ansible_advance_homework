@@ -15,9 +15,11 @@
     pip:
      name: ansible-tower-cli
      state: latest
+
   - name: List key files
     shell: (cd /root/.ssh; find . -maxdepth 1 -type f -iname '*key.pem')| cut -d'/' -f2
     register: file_to_copy
+
   - name: Tower Creds key file
     tower_credential:
       name: Creds for AWS instances
@@ -29,6 +31,7 @@
       tower_password: r3dh4t1!
       ssh_key_data: "/root/.ssh/{{ file_to_copy.stdout }}"
       username: ec2-user
+
   - name: Update Prod Job template
     tower_job_template:
       name: "3 tier app on Prod"
@@ -38,8 +41,10 @@
       tower_password: r3dh4t1!
       state: present
       job_type: run
+      inventory: "Three tier inventory"
       playbook: site-3tier-app.yml
       project: "Homework Assignment"
+
   - name: Update Prod Smoke Job template
     tower_job_template:
       name: "Smoke test Prod env"
@@ -49,6 +54,7 @@
       tower_password: r3dh4t1!
       state: present
       job_type: run
+      inventory: "Three tier inventory"
       playbook: site-smoketest-aws.yml
       project: "Homework Assignment"
 
