@@ -10,13 +10,15 @@
       - osp.smoke
 
   - name: Curl website
-    command: curl http://"{{ openstack_info | json_query('ansible_facts.openstack_servers[*].accessIPv4') | first }}"
+    uri:
+      url: http://{{ openstack_info | json_query('ansible_facts.openstack_servers[*].accessIPv4') | first }}
+      return_content: yes
     register: webpage
     tags:
      - osp.smoke
 
   - name: Fail if 'Ansible has done its job' is not in the page content
     fail:
-    when: "'Ansible has done its job' not in webpage.results[0].content"
+    when: "'Ansible has done its job' not in webpage.content"
     tags:
       - osp.smoke
