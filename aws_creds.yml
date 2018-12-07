@@ -33,7 +33,7 @@
       username: ec2-user
 
   - name: Update Prod Job template
-    command: tower-cli job_template modify -n "Homework Assignment" --credential="Creds for AWS instances"
+    command: tower-cli job_template modify --project="Homework Assignment" --credential="Creds for AWS instances" -n "3 tier app on Prod"
     # tower_job_template:
     #   name: "3 tier app on Prod"
     #   machine_credential: "Creds for AWS instances"
