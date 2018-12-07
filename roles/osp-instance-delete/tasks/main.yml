@@ -8,7 +8,7 @@
 
   - name: Debug
     debug:
-      var: result.ansible_facts.openstack_servers.name
+      var: result.ansible_facts.openstack_servers[*].name
 
   - name: Delete instances
     os_server:
@@ -16,4 +16,4 @@
       name: "{{ item }}"
       state: absent
     with_items:
-      - "{{ result.ansible_facts.openstack_servers.name }}"
+      - "{{ result.ansible_facts.openstack_servers[*].name }}"
