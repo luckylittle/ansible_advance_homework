@@ -8,7 +8,7 @@
 
   - name: Debug
     debug:
-      var: {{ item }}
+      var: "{{ item }}"
     with_items: result.ansible_facts.openstack_servers[*].name
 
   - name: Delete instances
