@@ -33,7 +33,7 @@
       username: ec2-user
 
   - name: Update Prod Job template
-    command: tower-cli job_template modify --project="Homework Assignment" --credential="Creds for AWS instances" -n "3 tier app on Prod"
+    command: tower-cli job_template modify --project="Homework Assignment" --credential="Creds for AWS instances" -n "3 tier app on Prod" -p "r3dh4t1!" -u admin -h "tower1.{{tower_guid}}.example.opentlc.com"
     # tower_job_template:
     #   name: "3 tier app on Prod"
     #   machine_credential: "Creds for AWS instances"
@@ -47,7 +47,7 @@
     #   project: "Homework Assignment"
 
   - name: Update Prod Smoke Job template
-    command: tower-cli job_template modify --project="Homework Assignment" --credential="Creds for AWS instances" -n "Smoke test Prod env"
+    command: tower-cli job_template modify --project="Homework Assignment" --credential="Creds for AWS instances" -n "Smoke test Prod env" -p "r3dh4t1!" -u admin -h "tower1.{{tower_guid}}.example.opentlc.com"
     # tower_job_template:
     #   name: "Smoke test Prod env"
     #   machine_credential: "Creds for AWS instances"
