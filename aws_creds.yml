@@ -33,29 +33,30 @@
       username: ec2-user
 
   - name: Update Prod Job template
-    tower_job_template:
-      name: "3 tier app on Prod"
-      machine_credential: "Creds for AWS instances"
-      tower_host: tower1.{{tower_guid}}.example.opentlc.com
-      tower_username: admin
-      tower_password: r3dh4t1!
-      state: present
-      job_type: run
-      inventory: "Three tier inventory"
-      playbook: site-3tier-app.yml
-      project: "Homework Assignment"
+    command: tower-cli job_template modify -n "Homework Assignment" --credential="Creds for AWS instances"
+    # tower_job_template:
+    #   name: "3 tier app on Prod"
+    #   machine_credential: "Creds for AWS instances"
+    #   tower_host: tower1.{{tower_guid}}.example.opentlc.com
+    #   tower_username: admin
+    #   tower_password: r3dh4t1!
+    #   state: present
+    #   job_type: run
+    #   inventory: "Three tier inventory"
+    #   playbook: site-3tier-app.yml
+    #   project: "Homework Assignment"
 
   - name: Update Prod Smoke Job template
-    tower_job_template:
-      name: "Smoke test Prod env"
-      machine_credential: "Creds for AWS instances"
-      tower_host: tower1.{{tower_guid}}.example.opentlc.com
-      tower_username: admin
-      tower_password: r3dh4t1!
-      state: present
-      job_type: run
-      inventory: "Three tier inventory"
-      playbook: site-smoketest-aws.yml
-      project: "Homework Assignment"
+    # tower_job_template:
+    #   name: "Smoke test Prod env"
+    #   machine_credential: "Creds for AWS instances"
+    #   tower_host: tower1.{{tower_guid}}.example.opentlc.com
+    #   tower_username: admin
+    #   tower_password: r3dh4t1!
+    #   state: present
+    #   job_type: run
+    #   inventory: "Three tier inventory"
+    #   playbook: site-smoketest-aws.yml
+    #   project: "Homework Assignment"
 
     
